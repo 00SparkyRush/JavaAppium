@@ -1,8 +1,6 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
 import lib.Platform;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -14,7 +12,8 @@ public class ArticlePageObject extends MainPageObject{
             ADD_TO_SAVED_LIST_ELEMENT,
             OPTIONS_ADD_TO_MY_LIST_BUTTON,
             OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
-            BACK_BUTTON_ELEMENT;
+            BACK_BUTTON_ELEMENT,
+            ARTICLE_BODY_TEXT;
 
 
     public ArticlePageObject(RemoteWebDriver driver)
@@ -40,11 +39,11 @@ public class ArticlePageObject extends MainPageObject{
         }
     }
 
-    public String getArticleTextByLocator(String locator)
+    public String getArticleText()
     {
         if (Platform.getInstance().isMW())
         {
-            WebElement element = waitForElementPresent(locator,"elemeni is not present");
+            WebElement element = waitForElementPresent(ARTICLE_BODY_TEXT,"elemeni is not present");
             return element.getText();
         } else {
             return "method does nothing for "+Platform.getInstance().getPlatformVar();

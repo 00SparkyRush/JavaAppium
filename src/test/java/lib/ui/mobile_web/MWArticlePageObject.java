@@ -11,6 +11,7 @@ public class MWArticlePageObject extends ArticlePageObject {
         OPTIONS_ADD_TO_MY_LIST_BUTTON = "xpath://ul[@id='page-actions']//a[@title='Add this page to your watchlist']";
         OPTIONS_REMOVE_FROM_MY_LIST_BUTTON = "xpath://ul[@id='page-actions']//a[@title='Remove this page from your watchlist']";
         BACK_BUTTON_ELEMENT = "xpath://android.widget.ImageButton[@content-desc='Navigate up']";
+        ARTICLE_BODY_TEXT = "xpath://section[@class='mf-section-0']/p";
     }
 
     public MWArticlePageObject(RemoteWebDriver driver)
