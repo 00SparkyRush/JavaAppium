@@ -102,6 +102,13 @@ public class TestsByExersizes extends CoreTestCase {
         SearchPageObject.typeSearchLine(search_querry2);
         SearchPageObject.clickByArticleWithSubstring(search_article2_title);
         ArticlePageObject.waitForTitleElement();
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         ArticlePageObject.tryToSaveAnArticle();
         ArticlePageObject.goBackFromArticle();
 
@@ -120,6 +127,8 @@ public class TestsByExersizes extends CoreTestCase {
                 search_article2_title,
                 result_article2_title
         );
+        String article_text = ArticlePageObject.getArticleTextByLocator("xpath://section[@class='mf-section-0']/p");
+        assertTrue(article_text.contains("tool for running scripts"));
     }
 
     @Test

@@ -40,6 +40,17 @@ public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    public String getArticleTextByLocator(String locator)
+    {
+        if (Platform.getInstance().isMW())
+        {
+            WebElement element = waitForElementPresent(locator,"elemeni is not present");
+            return element.getText();
+        } else {
+            return "method does nothing for "+Platform.getInstance().getPlatformVar();
+        }
+    }
+
     public void swipeToFooter()
     {
         this.swipeUpToFindElement(
