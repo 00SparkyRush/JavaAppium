@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -28,7 +29,7 @@ public class SavedArticlesPageObject extends MainPageObject {
     }
 
     //TEMPLATE METHODS
-
+    @Step("Open saved articles list(does nothing for mobile web)")
     public void openSavedArticlesList()
     {
         if (Platform.getInstance().isAndroid()) {
@@ -40,6 +41,8 @@ public class SavedArticlesPageObject extends MainPageObject {
                     Platform.getInstance().getPlatformVar());
         }
     }
+
+    @Step("check that article '{title}' appeared")
     public void waitForArticletoApearByTitle(String title)
     {
         String title_by_subsstring = getArticleTitle(title);
@@ -49,6 +52,8 @@ public class SavedArticlesPageObject extends MainPageObject {
                 5
         );
     }
+
+    @Step("check that article '{title}' disappeared")
     public void waitForArticletoDissapearByTitle(String title)
     {
         String title_by_subsstring = getArticleTitle(title);
@@ -58,6 +63,8 @@ public class SavedArticlesPageObject extends MainPageObject {
                 15
         );
     }
+
+    @Step("Swipe to delete an article '{title}'")
     public void deleteArticleByTitleWithSwipe(String title)
     {
         String title_by_subsstring = getArticleTitle(title);
@@ -82,6 +89,7 @@ public class SavedArticlesPageObject extends MainPageObject {
         this.waitForArticletoDissapearByTitle(title);
     }
 
+    @Step("open article '{title}'")
     public void openArticleByTitle(String title)
     {
         String title_by_subsstring = getArticleTitle(title);

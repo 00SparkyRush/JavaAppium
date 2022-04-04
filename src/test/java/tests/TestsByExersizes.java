@@ -1,5 +1,10 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Features;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -7,6 +12,7 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SavedArticlesPageObjectFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -18,14 +24,18 @@ public class TestsByExersizes extends CoreTestCase {
             password="WikiTest";
 
     @Test
+    @DisplayName("Check search field placeholder")
+    @Description("check that text at search field is correct")
+    @Step("Starting test testSearchFieldText")
     public void testSearchFieldText() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-        SearchPageObject.skipInitialLanguageSelect();
+        if (Platform.getInstance().isAndroid()){
+            SearchPageObject.skipInitialLanguageSelect();};
 
         SearchPageObject.initSearchInput();
         String actual_input_text = SearchPageObject.getSearchInputText();
 
-        assertEquals(
+        Assert.assertEquals(
                 "Search input text is incottect",
                 "Search Wikipedia",
                 actual_input_text
@@ -33,21 +43,28 @@ public class TestsByExersizes extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Check search and clear")
+    @Description("check that there some results in search, cancel and confirm there `s no results")
+    @Step("Starting test testSearchMultipleArticesAndClear")
     public void testSearchMultipleArticesAndClear() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-        SearchPageObject.skipInitialLanguageSelect();
+        if (Platform.getInstance().isAndroid()){
+            SearchPageObject.skipInitialLanguageSelect();};
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.waitForAnySearchResult();
         int search_result = SearchPageObject.getTotalAmountOfArticlesInSearch();
-        assertTrue("found only one article or less",search_result>1);
+        Assert.assertTrue("found only one article or less",search_result>1);
         SearchPageObject.clearSearchInput();
         int cleared_search_result = SearchPageObject.getTotalAmountOfArticlesInSearch();
-        assertTrue("searsh result was not cleared",cleared_search_result==0);
+        Assert.assertTrue("searsh result was not cleared",cleared_search_result==0);
     }
 
     @Test
+    @DisplayName("check that articles has specific word")
+    @Description("Find articles, confirm they all has the same keyword")
+    @Step("Starting test testConfirmMultipleArticlesByKeyword")
     public void testConfirmMultipleArticlesByKeyword() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         if (Platform.getInstance().isAndroid()){
@@ -59,10 +76,14 @@ public class TestsByExersizes extends CoreTestCase {
 
         int elements_overall_amount = SearchPageObject.getTotalAmountOfArticlesInSearch();
         int elements_with_keyword_amount = SearchPageObject.getTotalAmountOfArticlesInSearchBysubstring("Java");
-        assertTrue("not every result contains corresponding keyword", elements_with_keyword_amount == elements_overall_amount);
+        Assert.assertTrue("not every result contains corresponding keyword", elements_with_keyword_amount == elements_overall_amount);
     }
 
     @Test
+    @Features(value = {@Feature(value="Search"), @Feature(value="Article"), @Feature(value="Watchlist")})
+    @DisplayName("check work with watchlist")
+    @Description("add two articles to watchlist, remove one, confirm that second one is in list")
+    @Step("Starting test testSaveArticlesToMyList")
     public void testSaveArticlesToMyList() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
@@ -91,7 +112,7 @@ public class TestsByExersizes extends CoreTestCase {
             Auth.returnToPreviousPage();
 
             ArticlePageObject.waitForTitleElement();
-            assertEquals("page is not the same after login", article1_title_actual
+            Assert.assertEquals("page is not the same after login", article1_title_actual
                     , ArticlePageObject.getArticleTitle());
 
             //ArticlePageObject.addArticleToSavedList();
@@ -116,21 +137,25 @@ public class TestsByExersizes extends CoreTestCase {
         ArticlePageObject.waitForTitleElement();
 
         String result_article2_title = ArticlePageObject.getArticleTitle();
-        assertEquals(
+        Assert.assertEquals(
                 "titles does not match",
                 search_article2_title,
                 result_article2_title
         );
         String article_text = ArticlePageObject.getArticleText();
-        assertTrue(article_text.contains("tool for running scripts"));
+        Assert.assertTrue(article_text.contains("tool for running scripts"));
     }
 
     @Test
+    @DisplayName("Check that article has title field")
+    @Description("find an article and confirm it has title element")
+    @Step("Starting test testAssertArticleHasTitle")
     public void testAssertArticleHasTitle()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
-        SearchPageObject.skipInitialLanguageSelect();
+        if (Platform.getInstance().isAndroid()){
+            SearchPageObject.skipInitialLanguageSelect();};
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
@@ -140,6 +165,9 @@ public class TestsByExersizes extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("Check that search contains provided results")
+    @Description("Type querry,confirm that there are three results by this querry")
+    @Step("Starting test testConfirmFirstThreeResultsOfSearch")
     public void testConfirmFirstThreeResultsOfSearch()
     {
         String title_result1 = "java";
@@ -150,7 +178,8 @@ public class TestsByExersizes extends CoreTestCase {
         String description_result3 = "Object-oriented programming language";
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-        SearchPageObject.skipInitialLanguageSelect();
+        if (Platform.getInstance().isAndroid()){
+            SearchPageObject.skipInitialLanguageSelect();};
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");

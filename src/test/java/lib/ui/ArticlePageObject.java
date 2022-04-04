@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -20,6 +21,8 @@ public class ArticlePageObject extends MainPageObject{
     {
         super(driver);
     }
+
+    @Step("Check byt title that correct article is opened")
     public WebElement waitForTitleElement()
     {
         return this.waitForElementPresent(
@@ -28,9 +31,11 @@ public class ArticlePageObject extends MainPageObject{
                 10
         );
     }
+    @Step("get article title as parameter")
     public String getArticleTitle()
     {
         WebElement title_element = waitForTitleElement();
+        screenshot(this.takeScreenshot("article_title"));
         if (Platform.getInstance().isAndroid()) {
             return title_element.getAttribute("text");
         }
@@ -39,6 +44,7 @@ public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("Get article body text")
     public String getArticleText()
     {
         if (Platform.getInstance().isMW())
@@ -50,6 +56,7 @@ public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("swipe article to footer")
     public void swipeToFooter()
     {
         this.swipeUpToFindElement(
@@ -58,6 +65,7 @@ public class ArticlePageObject extends MainPageObject{
                 20);
     }
 
+    @Step("Add article to saved list")
     public void tryToSaveAnArticle()
     {
         this.waitForElementPresent(ADD_TO_SAVED_LIST_ELEMENT,"cant locate save button",10);
@@ -78,6 +86,7 @@ public class ArticlePageObject extends MainPageObject{
         );
     }
 
+    @Step("remove article from saved")
     public void removeArticlesFromSavedIfItAdded()
     {
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON))
@@ -87,6 +96,7 @@ public class ArticlePageObject extends MainPageObject{
         }
     }
 
+    @Step("go back from article to search (doesnt work for mobile platforms)")
     public void goBackFromArticle()
     {
         if (Platform.getInstance().isAndroid()){

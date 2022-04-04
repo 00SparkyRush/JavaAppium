@@ -11,7 +11,7 @@ public class MWSearchPageObject extends SearchPageObject {
             SEARCH_RESULT = "";
             SEARCH_RESULT_BY_SUBSTRING_TPL = "xpath://div[contains(text(),'{SUBSTRING}')]";
             SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION = "";
-            SERARH_RESULT_CONTAINING_SUBSTRING_TPL = "xpath://li[contains(@title,'{SUBSTRING}')]";
+            SERARH_RESULT_CONTAINING_SUBSTRING_TPL = "xpath://li/a/div[contains(text(),'{SUBSTRING}')]";
             SEARCH_RESULT_ELEMENT = "css:ul.page-list>li.page-summary";
             EMPTY_RESULTS_LABEL = "css:p.without-results";
         }

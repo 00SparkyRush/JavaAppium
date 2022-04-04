@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -47,6 +48,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 getAttribute("text");
     }
 
+    @Step("Initializing search field")
     public void initSearchInput()
     {
         this.waitForElementPresent(
@@ -59,6 +61,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 "can`t find and click search init element"
         );
     }
+    @Step("Type '{search_line}' in search")
     public void typeSearchLine(String search_line)
     {
         this.waitForElementAndSendKeys(
@@ -67,6 +70,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 "Can`t find and type into search input"
         );
     }
+    @Step("Wait for search results list to appaer")
     public void waitForAnySearchResult()
     {
         this.waitForElementPresent(
@@ -75,6 +79,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 15
         );
     }
+    @Step("wait for search result '{substring}'")
     public void waitForSearchResult(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);
@@ -84,6 +89,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 5
         );
     }
+    @Step("wait for search result containing text '{substring}'")
     public void waitForSearchResultContainsText(String substring)
     {
         String search_result_xpath = getResultSearchElementContainintSubstring(substring);
@@ -93,6 +99,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 5
         );
     }
+    @Step("Confirm that article  title '{title}' and description '{description}' was found")
     public void waitForElementByTitleAndDescription(String title, String description)
     {
         String search_result_xpath = getResultSearchElementContaininsTitleAndDescription(title, description);
@@ -102,7 +109,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 15
         );
     }
-
+    @Step("Open an article '{substring}'")
     public void clickByArticleWithSubstring(String substring) {
         String search_result_xpath = getResultSearchElementContainintSubstring(substring);
         this.waitForElementAndClick(
@@ -111,6 +118,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 10
         );
     }
+    @Step("Wait for button to cancel search result appear")
     public void waitFroCancelButtonToAppear()
     {
         this.waitForElementPresent(
@@ -118,7 +126,7 @@ abstract public class SearchPageObject extends MainPageObject{
                 "Can`t find search cancel button"
         );
     }
-
+    @Step("Wait for button to cancel search result disappear")
     public void waitFroCancelButtonToDisappear()
     {
         this.waitForElementNotPresent(
@@ -128,6 +136,7 @@ abstract public class SearchPageObject extends MainPageObject{
         );
     }
 
+    @Step("cancel search")
     public void clickCancelButton()
     {
         this.waitForElementAndClick(
@@ -137,11 +146,13 @@ abstract public class SearchPageObject extends MainPageObject{
         );
     }
 
+    @Step("Get amount of articles found in search")
     public int getTotalAmountOfArticlesInSearch()
     {
         return driver.findElements(By.xpath(SEARCH_RESULT)).size();
     }
 
+    @Step("Get amount of articles with '{substring}' text in header found in search")
     public int getTotalAmountOfArticlesInSearchBysubstring(String substring)
     {
         String search_results_by_substring = getResultSearchElementContainintSubstring(substring);
@@ -167,6 +178,7 @@ abstract public class SearchPageObject extends MainPageObject{
         return this.getAmountOfElements(SEARCH_RESULT_ELEMENT );
     }
 
+    @Step("Confrim that nothing was found")
     public void waitForEmptyResultsLabel()
     {
         this.waitForElementPresent(
