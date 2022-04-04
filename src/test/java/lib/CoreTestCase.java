@@ -29,7 +29,7 @@ public class CoreTestCase {
 
         //super.setUp();
         driver = Platform.getInstance().getDriver();
-        this.createAllurePropertyFile();
+        //this.createAllurePropertyFile();
         this.rotateScreenPortrait();
         this.openWikiWebPageForMobileWeb();
 

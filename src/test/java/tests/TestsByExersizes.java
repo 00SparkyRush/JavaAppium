@@ -170,7 +170,7 @@ public class TestsByExersizes extends CoreTestCase {
     @Step("Starting test testConfirmFirstThreeResultsOfSearch")
     public void testConfirmFirstThreeResultsOfSearch()
     {
-        String title_result1 = "java";
+        String title_result1 = "Java";
         String description_result1 = "Island in Southeast Asia";
         String title_result2 = "JavaScript";
         String description_result2 = "High-level programming language";
